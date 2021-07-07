@@ -4,6 +4,14 @@ module Aptible
       module LogDrain
         include Helpers::Token
 
+        def drain_options
+          option :drain_apps, default: true, type: :boolean
+          option :drain_databases, default: true, type: :boolean
+          option :drain_ephemeral_sessions, default: true, type: :boolean
+          option :drain_proxies, default: true, type: :boolean
+          option :environment
+        end
+
         def create_log_drain(account, drain_opts)
           drain = account.create_log_drain!(drain_opts)
           op = drain.create_operation(type: :provision)
